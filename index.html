@@ -434,6 +434,9 @@
 
     .menu-card {
       position: relative;
+      z-index: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
       border-radius: var(--radius-card);
       overflow: hidden;
       aspect-ratio: 1 / 1.12;
@@ -474,7 +477,7 @@
 
     .menu-card__label {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       margin: 0;
       font-size: clamp(0.65rem, 2.8vw, 0.85rem);
       font-weight: 700;
@@ -801,7 +804,7 @@
     </a>
     <nav class="nav-desktop" aria-label="Ana navigasyon">
       <a href="#hero">Ana Sayfa</a>
-      <a href="menu.html#kampanyalar">Menü</a>
+      <a href="#menu">Menü</a>
       <a href="#iletisim">İletişim</a>
     </nav>
     <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menüyü aç">
@@ -813,7 +816,7 @@
 
   <nav id="mobile-nav" class="nav-drawer" aria-hidden="true" aria-label="Mobil menü">
     <a href="#hero">Ana Sayfa</a>
-    <a href="menu.html#kampanyalar">Menü</a>
+    <a href="#menu">Menü</a>
     <a href="#iletisim">İletişim</a>
   </nav>
 
@@ -870,40 +873,40 @@
           <span class="menu-section__line" aria-hidden="true"></span>
         </div>
         <div class="menu-grid">
-          <a href="menu.html#kampanyalar" class="menu-card menu-card--m1">
+          <a href="kampanyalar.html" class="menu-card menu-card--m1">
             <p class="menu-card__label">KAMPANYALAR</p>
           </a>
-          <a href="menu.html#baslangic" class="menu-card menu-card--m2">
+          <a href="baslangic.html" class="menu-card menu-card--m2">
             <p class="menu-card__label">BAŞLANGIÇ</p>
           </a>
-          <a href="menu.html#makarnalar" class="menu-card menu-card--m3">
+          <a href="makarnalar.html" class="menu-card menu-card--m3">
             <p class="menu-card__label">MAKARNALAR</p>
           </a>
-          <a href="menu.html#salatalar" class="menu-card menu-card--m4">
+          <a href="salatalar.html" class="menu-card menu-card--m4">
             <p class="menu-card__label">SALATALAR</p>
           </a>
-          <a href="menu.html#ev-yemekleri" class="menu-card menu-card--m5">
+          <a href="ev-yemekleri.html" class="menu-card menu-card--m5">
             <p class="menu-card__label">EV YEMEKLERİ</p>
           </a>
-          <a href="menu.html#kahvaltilar" class="menu-card menu-card--m6">
+          <a href="kahvaltilar.html" class="menu-card menu-card--m6">
             <p class="menu-card__label">KAHVALTILAR</p>
           </a>
-          <a href="menu.html#hamburger" class="menu-card menu-card--m7">
+          <a href="hamburger.html" class="menu-card menu-card--m7">
             <p class="menu-card__label">HAMBURGER</p>
           </a>
-          <a href="menu.html#pizza" class="menu-card menu-card--m8">
+          <a href="pizza.html" class="menu-card menu-card--m8">
             <p class="menu-card__label">PİZZA</p>
           </a>
-          <a href="menu.html#tost-cesitleri" class="menu-card menu-card--m9">
+          <a href="tost-cesitleri.html" class="menu-card menu-card--m9">
             <p class="menu-card__label">TOST ÇEŞİTLERİ</p>
           </a>
-          <a href="menu.html#nargile" class="menu-card menu-card--m10">
+          <a href="nargile.html" class="menu-card menu-card--m10">
             <p class="menu-card__label">NARGİLE</p>
           </a>
-          <a href="menu.html#soguk-icecekler" class="menu-card menu-card--m11">
+          <a href="soguk-icecekler.html" class="menu-card menu-card--m11">
             <p class="menu-card__label">SOĞUK İÇECEKLER</p>
           </a>
-          <a href="menu.html#sicak-icecekler" class="menu-card menu-card--m12">
+          <a href="sicak-icecekler.html" class="menu-card menu-card--m12">
             <p class="menu-card__label">SICAK İÇECEKLER</p>
           </a>
         </div>
