@@ -37,7 +37,18 @@
       padding: 0 5vw; height: 62px;
       box-shadow: 0 2px 12px rgba(0,0,0,.25);
     }
-    .nav-logo { display: flex; flex-direction: column; align-items: center; text-decoration: none; gap: 1px; line-height: 1; }
+    .nav-logo { display: flex; flex-direction: row; align-items: center; text-decoration: none; gap: 10px; line-height: 1; }
+    .brand-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-text__name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #d4af37; }
+.brand-text__tag { font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,.6); font-weight: 500; }
+
     .nav-logo .top,
     .nav-logo .bot { font-size: 9px; letter-spacing: 4px; color: rgba(255,255,255,.5); font-weight: 500; }
     .nav-logo .mid { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--orange); font-weight: 700; }
@@ -134,11 +145,14 @@
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="index.html">
-    <span class="mid">Babylon</span>
-    <span class="bot">CAFE</span>
-  </a>
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img class="brand-logo" src="assets/logo.webp" alt="Babylon Cafe logo" />
+      <span class="brand-text">
+        <span class="brand-text__name">Babylon</span>
+        <span class="brand-text__tag">CAFE</span>
+      </span>
+    </a>
   <div class="nav-links">
     <a href="index.html#hero">Ana Sayfa</a>
     <a href="index.html#menu">Menü</a>
