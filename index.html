@@ -314,14 +314,37 @@
       color: var(--brand-gold);
     }
 
-    .hero__hours {
-      margin: 0;
-      font-size: clamp(1rem, 3.8vw, 1.15rem);
-      font-weight: 600;
-      color: var(--text-white);
-      opacity: 0.98;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    .hero_headline_unerline p {
+      color: #ffffff;
     }
+
+    .hero__hours {
+  margin: 0;
+  font-size: clamp(1rem, 3.8vw, 1.15rem);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+ 
+  gap: 0.4rem; /* Boşluğu azıcık açtık, daha ferah durur */
+  color: var(--text-white);
+  opacity: 0.98;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  
+  /* KRİTİK DOKUNUŞ: Satır yüksekliğini sabitleyerek yazının kutusunu daralttık */
+  line-height: 1; 
+  transform: translateY(1px);
+}
+
+.icon-clock {
+  /* Font boyutuyla orantılı olması için px yerine em kullandık */
+  width: 1.1em; 
+  height: 1.1em;
+  stroke: #d4af37;
+  stroke-width: 2.5px; /* İkonun çizgilerini font kalınlığına eşitledik */
+  
+  flex-shrink: 0; /* İkonun ezilmesini engeller */
+  display: block; /* Baseline boşluğunu öldürür */
+}
 
     /* ——— Contact ——— */
     .contact {
@@ -826,7 +849,14 @@
         <span class="hero__badge">Babylon Cafe</span>
         <h1 class="hero__title">Babylon Cafe</h1>
         <p class="hero__headline"><span class="gold">Chill’in</span> Adresi</p>
-        <p class="hero__hours">09:00 - 02:00</p>
+        <p class="hero_headline_unerline" style="color: #ffffff57;"><i>Süper Lig, Sinema, Kahve, Keyif...</i></p>
+        <p class="hero__hours">
+          <svg class="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>09:00 - 02:00</span>
+        </p>
       </div>
     </section>
 
@@ -848,7 +878,7 @@
             </div>
           </div>
           <div class="contact__social" aria-label="Sosyal medya">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="instagram-btn">
+            <a href="https://www.instagram.com/babyloncafe.tr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="instagram-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="url(#insta-gradient)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                   <defs>
                       <linearGradient id="insta-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
