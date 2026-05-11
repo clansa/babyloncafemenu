@@ -104,7 +104,7 @@ def build_page(
 </head>
 <body>
   <header class="site-header">
-    <a href="index.html" class="brand" aria-label="Babylon Cafe ana sayfa">
+    <img class="brand-logo" src="assets/logo.webp" alt="Babylon Cafe logo" />
       {SVG_LOGO}
       <span class="brand-text">
         <span class="brand-text__name">Babylon</span>
@@ -163,7 +163,7 @@ def note_only_page(
 </head>
 <body>
   <header class="site-header">
-    <a href="index.html" class="brand" aria-label="Babylon Cafe ana sayfa">
+    <img class="brand-logo" src="assets/logo.webp" alt="Babylon Cafe logo" />
       {SVG_LOGO}
       <span class="brand-text">
         <span class="brand-text__name">Babylon</span>
