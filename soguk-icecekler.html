@@ -10,7 +10,54 @@
   <link rel="stylesheet" href="assets/menu-doc.css" />
   <style>
     :root {
-      --category-banner: url("assets/soguk-icecekler.png");
+      --category-banner: url("assets/soguk-icecekler.webp");
+    }
+
+    .category-hero {
+  width: 100%;
+  height: 200px; /* Banner yüksekliği */
+  background-image: var(--category-banner);
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 0 20px 20px; /* Alt köşeleri hafif yuvarlayalım şık dursun */
+  margin-bottom: 20px;
+}
+
+    /* Fotoğrafsız Şık Liste Tasarımı İçin Eklenen CSS */
+    .product-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0; /* Boşlukları sıfırlayıp çizgiyle ayıracağız */
+    }
+    .product-card {
+      display: flex;
+      width: 100%;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Altın rengi hafif bir alt çizgi */
+      background: transparent;
+      box-shadow: none;
+    }
+    .product-card:last-child {
+      border-bottom: none; /* Listenin son elemanında çizgi olmasın */
+    }
+    .product-card__body {
+      display: flex;
+      width: 100%;
+      justify-content: space-between; /* İsim solda, fiyat sağda */
+      align-items: center;
+      padding: 0;
+    }
+    .product-card__title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #000000; /* Dark mode için beyaz yazı */
+    }
+    .product-card__price {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand-gold, #d4af37); /* Fiyat Babylon altın sarısı */
     }
   </style>
 </head>
@@ -48,433 +95,381 @@
     <a class="menu-doc__back" href="index.html#menu">← Ana menüye dön</a>
     <div class="category-hero" role="img" aria-hidden="true"></div>
     <h1 class="category-page__title">Soğuk içecekler</h1>
-    <p class="category-page__intro">Tüm alt gruplar için fotoğraflar tek klasörde: assets/soguk-icecekler/item-01.jpg … item-58.jpg (sayfa yukarıdan aşağı sırayla).</p>
+    
     <h2 class="category-sub">Gazlı &amp; soğuk içecekler</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-01.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Su</h3>
-        <p class="product-card__price">50 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-02.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Sade soda</h3>
-        <p class="product-card__price">70 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-03.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Coca Cola</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-04.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Churchill</h3>
-        <p class="product-card__price">110 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-05.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Sprite</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-06.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Cappy</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-07.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Fanta</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-08.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Fuse Tea</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-09.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Cola Zero</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-10.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Ayran</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-11.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Şişe Cola</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-12.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Meyveli soda</h3>
-        <p class="product-card__price">100 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-13.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Redbull</h3>
-        <p class="product-card__price">160 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-14.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Şalgam</h3>
-        <p class="product-card__price">90 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-15.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çilekli limonata</h3>
-        <p class="product-card__price">220 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-16.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">El yapımı limonata</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-17.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Redbull kokteyl</h3>
-        <p class="product-card__price">350 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Su</h3>
+          <p class="product-card__price">50 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Sade soda</h3>
+          <p class="product-card__price">70 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Coca Cola</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Churchill</h3>
+          <p class="product-card__price">110 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Sprite</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Cappy</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Fanta</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Fuse Tea</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Cola Zero</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Ayran</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Şişe Cola</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Meyveli soda</h3>
+          <p class="product-card__price">100 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Redbull</h3>
+          <p class="product-card__price">160 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Şalgam</h3>
+          <p class="product-card__price">90 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çilekli limonata</h3>
+          <p class="product-card__price">220 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">El yapımı limonata</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Redbull kokteyl</h3>
+          <p class="product-card__price">350 ₺</p>
+        </div>
+      </article>
     </div>
+
     <h2 class="category-sub">Taze meyve suları</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-18.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Portakal suyu</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-19.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Nar portakal</h3>
-        <p class="product-card__price">230 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-20.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Nar suyu</h3>
-        <p class="product-card__price">220 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-21.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Limonata</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Portakal suyu</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Nar portakal</h3>
+          <p class="product-card__price">230 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Nar suyu</h3>
+          <p class="product-card__price">220 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Limonata</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
     </div>
+
     <h2 class="category-sub">Milkshake</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-22.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Karamelli milkshake</h3>
-        <p class="product-card__price">180 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-23.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çikolatalı milkshake</h3>
-        <p class="product-card__price">180 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-24.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çilekli milkshake</h3>
-        <p class="product-card__price">180 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-25.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Muzlu milkshake</h3>
-        <p class="product-card__price">180 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-26.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Vanilyalı milkshake</h3>
-        <p class="product-card__price">180 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-27.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Ahududu milkshake</h3>
-        <p class="product-card__price">180 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-28.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Babylon special milkshake</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-29.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Oreolu milkshake</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Karamelli milkshake</h3>
+          <p class="product-card__price">180 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çikolatalı milkshake</h3>
+          <p class="product-card__price">180 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çilekli milkshake</h3>
+          <p class="product-card__price">180 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Muzlu milkshake</h3>
+          <p class="product-card__price">180 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Vanilyalı milkshake</h3>
+          <p class="product-card__price">180 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Ahududu milkshake</h3>
+          <p class="product-card__price">180 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Babylon special milkshake</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Oreolu milkshake</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
     </div>
+
     <h2 class="category-sub">Frozen</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-30.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çilekli frozen</h3>
-        <p class="product-card__price">170 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-31.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Karpuz çilek frozen</h3>
-        <p class="product-card__price">170 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-32.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Kavun frozen</h3>
-        <p class="product-card__price">170 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-33.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Böğürtlen frozen</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-34.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Yaban mersini frozen</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-35.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Frambuaz frozen</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-36.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Ananas frozen</h3>
-        <p class="product-card__price">185 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-37.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Mango frozen</h3>
-        <p class="product-card__price">185 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-38.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Orman meyveli frozen</h3>
-        <p class="product-card__price">185 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çilekli frozen</h3>
+          <p class="product-card__price">170 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Karpuz çilek frozen</h3>
+          <p class="product-card__price">170 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Kavun frozen</h3>
+          <p class="product-card__price">170 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Böğürtlen frozen</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Yaban mersini frozen</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Frambuaz frozen</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Ananas frozen</h3>
+          <p class="product-card__price">185 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Mango frozen</h3>
+          <p class="product-card__price">185 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Orman meyveli frozen</h3>
+          <p class="product-card__price">185 ₺</p>
+        </div>
+      </article>
     </div>
+
     <h2 class="category-sub">Frappe</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-39.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çilekli frappe</h3>
-        <p class="product-card__price">170 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-40.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çikolatalı frappe</h3>
-        <p class="product-card__price">170 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-41.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Fıstıklı frappe</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-42.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Kavunlu frappe</h3>
-        <p class="product-card__price">170 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-43.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Oreo frappe</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çilekli frappe</h3>
+          <p class="product-card__price">170 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çikolatalı frappe</h3>
+          <p class="product-card__price">170 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Fıstıklı frappe</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Kavunlu frappe</h3>
+          <p class="product-card__price">170 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Oreo frappe</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
     </div>
+
     <h2 class="category-sub">Babylon kokteyller</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-44.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Babylon Rosalinda</h3>
-        <p class="product-card__price">350 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-45.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Babylon Coco Melon</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-46.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Tropik esinti</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-47.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Babylon White Angel</h3>
-        <p class="product-card__price">260 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-48.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Magic of Green</h3>
-        <p class="product-card__price">260 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-49.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Bubble Paradise</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-50.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Gökkuşağı punch</h3>
-        <p class="product-card__price">240 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Babylon Rosalinda</h3>
+          <p class="product-card__price">350 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Babylon Coco Melon</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Tropik esinti</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Babylon White Angel</h3>
+          <p class="product-card__price">260 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Magic of Green</h3>
+          <p class="product-card__price">260 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Bubble Paradise</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Gökkuşağı punch</h3>
+          <p class="product-card__price">240 ₺</p>
+        </div>
+      </article>
     </div>
+
     <h2 class="category-sub">Smoothie</h2>
     <div class="product-grid">
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-51.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Böğürtlen smoothie</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-52.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Frambuaz smoothie</h3>
-        <p class="product-card__price">200 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-53.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Orman meyveli smoothie</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-54.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Çilekli smoothie</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-55.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Vanilyalı smoothie</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-56.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Mango smoothie</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-57.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Ananas smoothie</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
-    <article class="product-card">
-      <div class="product-card__photo" style="background-image:url('assets/soguk-icecekler/item-58.jpg');"></div>
-      <div class="product-card__body">
-        <h3 class="product-card__title">Karadut smoothie</h3>
-        <p class="product-card__price">190 ₺</p>
-      </div>
-    </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Böğürtlen smoothie</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Frambuaz smoothie</h3>
+          <p class="product-card__price">200 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Orman meyveli smoothie</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Çilekli smoothie</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Vanilyalı smoothie</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Mango smoothie</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Ananas smoothie</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-card__body">
+          <h3 class="product-card__title">Karadut smoothie</h3>
+          <p class="product-card__price">190 ₺</p>
+        </div>
+      </article>
     </div>
 
   </main>
