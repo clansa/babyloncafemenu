@@ -251,5 +251,45 @@
     })();
   </script>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC9F3dU-QJ4UKZBN128cvyRkL7X6c6f0cY",
+    authDomain: "babylon-cafe-admin-panel.firebaseapp.com",
+    projectId: "babylon-cafe-admin-panel",
+    storageBucket: "babylon-cafe-admin-panel.firebasestorage.app",
+    messagingSenderId: "602565284281",
+    appId: "1:602565284281:web:fdd188eb4a961eac4e6668"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Bu sayfadaki kategoriyi çek (makarnalar için: 'makarnalar')
+  const q = query(collection(db, "menu_items"), where("categoryId", "==", "makarnalar"));
+
+  onSnapshot(q, (snapshot) => {
+    const grid = document.querySelector(".product-grid");
+    if (!grid || snapshot.empty) return;
+    
+    grid.innerHTML = "";
+    snapshot.forEach((doc) => {
+      const item = doc.data();
+      if (!item.active) return; // Tükendi olanları gizle
+
+      grid.innerHTML += `
+        <article class="product-card">
+          <div class="product-card__body">
+            <h3 class="product-card__title">${item.title}</h3>
+            <p class="product-card__price">${item.price} ₺</p>
+          </div>
+        </article>
+      `;
+    });
+  });
+</script>
+
 </body>
 </html>
