@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Babylon Cafe — Yönetim Paneli</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; background-color: #0c0e12; color: #e4e4e7; }
+    .gold-text { color: #d4af37; }
+    .gold-bg { background-color: #d4af37; }
+    .gold-border { border-color: #d4af37; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #12151c; }
+    ::-webkit-scrollbar-thumb { background: #272d3b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+  </style>
+</head>
+<body class="min-h-screen flex antialiased">
+
+  <!-- Giriş Ekranı -->
+  <div id="auth-screen" class="fixed inset-0 bg-[#0c0e12] z-50 flex items-center justify-center p-4">
+    <div class="bg-[#12151c] border border-zinc-800 p-8 rounded-2xl w-full max-w-md shadow-2xl">
+      <div class="flex flex-col items-center mb-6">
+        <div class="w-14 h-14 rounded-full gold-bg flex items-center justify-center font-bold text-black text-2xl mb-3 shadow-lg">B</div>
+        <h2 class="text-xl font-bold text-white tracking-wide">BABYLON CAFE</h2>
+        <span class="text-xs gold-text uppercase tracking-widest mt-1">Yönetici Girişi</span>
+      </div>
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">E-Posta</label>
+          <input type="email" id="login-email" required class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-[#d4af37] focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">Şifre</label>
+          <input type="password" id="login-password" required class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-[#d4af37] focus:outline-none">
+        </div>
+        <p id="login-error" class="text-rose-400 text-xs hidden"></p>
+        <button type="submit" id="login-btn" class="w-full gold-bg hover:bg-[#c29e2f] text-black font-bold py-3 rounded-lg text-sm transition-all shadow-md">
+          Giriş Yap
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Ana Dashboard -->
+  <div id="dashboard-screen" class="hidden flex-1 flex w-full h-screen overflow-hidden">
+    
+    <!-- Sidebar -->
+    <aside class="w-72 bg-[#12151c] border-r border-zinc-800 flex flex-col justify-between hidden md:flex shrink-0">
+      <div class="p-5">
+        <div class="flex items-center justify-between pb-5 border-b border-zinc-800">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full gold-bg flex items-center justify-center font-bold text-black text-base shadow">B</div>
+            <div>
+              <h2 class="font-bold text-white text-sm">BABYLON</h2>
+              <span class="text-[10px] gold-text uppercase tracking-wider font-semibold">Menü Paneli</span>
+            </div>
+          </div>
+          <button onclick="handleLogout()" class="text-zinc-400 hover:text-rose-400 text-xs font-semibold">Çıkış</button>
+        </div>
+
+        <div class="mt-5">
+          <p class="text-[11px] uppercase tracking-wider text-zinc-500 font-bold px-3 mb-2">Kategoriler</p>
+          <button onclick="filterCategory('all')" id="btn-cat-all" class="w-full text-left px-3.5 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-between transition-all bg-zinc-800 text-white gold-border border-l-2">
+            <span>Tüm Ürünler</span>
+            <span id="badge-total-count" class="text-xs gold-text bg-zinc-900 px-2 py-0.5 rounded-full font-bold">0</span>
+          </button>
+          <nav id="sidebar-categories" class="mt-2 space-y-1 max-h-[calc(100vh-320px)] overflow-y-auto pr-1"></nav>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-zinc-800/80 bg-[#0e1017] space-y-2">
+        <button onclick="seedInitialData()" id="btn-seed" class="w-full py-2 bg-zinc-800/60 hover:bg-zinc-700 text-zinc-400 hover:text-white text-xs font-medium rounded-lg transition-colors border border-zinc-700/40">
+          📦 Tüm Menüyü Firestore'a Aktar (Seed)
+        </button>
+      </div>
+    </aside>
+
+    <!-- Ana Panel İçeriği -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#0c0e12]">
+      <!-- Header -->
+      <header class="h-16 bg-[#12151c] border-b border-zinc-800 px-6 flex items-center justify-between shrink-0 gap-4">
+        <div class="relative w-full max-w-md">
+          <input type="text" id="search-input" oninput="handleSearch()" placeholder="Ürün adı veya alt başlık ara..." 
+                 class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg pl-9 pr-4 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-[#d4af37]">
+          <svg class="w-4 h-4 text-zinc-500 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <button onclick="openModal()" class="gold-bg hover:bg-[#c29e2f] text-black font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-md flex items-center gap-1.5 shrink-0">
+          <span>+ Yeni Ürün</span>
+        </button>
+      </header>
+
+      <!-- Liste -->
+      <div class="flex-1 overflow-y-auto p-6 md:p-8">
+        <div class="max-w-7xl mx-auto space-y-5">
+          
+          <div class="flex justify-between items-end">
+            <div>
+              <h1 id="page-category-title" class="text-xl font-bold text-white">Tüm Ürünler</h1>
+              <p id="page-item-count" class="text-xs text-zinc-400 mt-0.5">Yükleniyor...</p>
+            </div>
+          </div>
+
+          <div class="bg-[#12151c] border border-zinc-800 rounded-xl overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-zinc-800 text-zinc-400 bg-zinc-900/50 text-xs uppercase tracking-wider">
+                    <th class="py-3.5 px-4">Ürün Adı</th>
+                    <th class="py-3.5 px-4">Kategori</th>
+                    <th class="py-3.5 px-4">Alt Başlık</th>
+                    <th class="py-3.5 px-4">Fiyat</th>
+                    <th class="py-3.5 px-4 text-center">Stok Durumu</th>
+                    <th class="py-3.5 px-4 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="product-tbody" class="divide-y divide-zinc-800/50"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Ürün Ekle / Düzenle Modal -->
+  <div id="product-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-[#12151c] border border-zinc-700 rounded-2xl w-full max-w-lg p-6 shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-zinc-800">
+        <h3 id="modal-heading" class="text-base font-bold text-white">Ürün Düzenle</h3>
+        <button onclick="closeModal()" class="text-zinc-400 hover:text-white text-2xl font-bold leading-none">&times;</button>
+      </div>
+
+      <form id="product-form" class="space-y-4 mt-4 text-sm">
+        <input type="hidden" id="form-doc-id">
+
+        <div>
+          <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">Ürün Adı</label>
+          <input type="text" id="form-title" required placeholder="Örn: Tavuklu Fettucini Alfredo"
+                 class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-2.5 text-white focus:border-[#d4af37] focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">Fiyat (₺)</label>
+            <input type="number" step="0.5" id="form-price" required placeholder="Örn: 400"
+                   class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-2.5 text-white focus:border-[#d4af37] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">Stok Durumu</label>
+            <select id="form-active" class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-2.5 text-white focus:border-[#d4af37] focus:outline-none">
+              <option value="true">Aktif (Satışta)</option>
+              <option value="false">Pasif (Tükendi)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">Kategori</label>
+            <select id="form-category" class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-2.5 text-white focus:border-[#d4af37] focus:outline-none"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1">Alt Başlık</label>
+            <input type="text" id="form-subcategory" placeholder="Örn: Kırmızı Etler / Genel"
+                   class="w-full bg-[#090b0e] border border-zinc-700 rounded-lg p-2.5 text-white focus:border-[#d4af37] focus:outline-none">
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-zinc-800">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 font-medium text-xs">İptal</button>
+          <button type="submit" id="btn-save" class="gold-bg text-black font-bold px-5 py-2 rounded-lg hover:bg-[#c29e2f] transition-all text-xs">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getFirestore, collection, onSnapshot, doc, addDoc, updateDoc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9F3dU-QJ4UKZBN128cvyRkL7X6c6f0cY",
+      authDomain: "babylon-cafe-admin-panel.firebaseapp.com",
+      projectId: "babylon-cafe-admin-panel",
+      storageBucket: "babylon-cafe-admin-panel.firebasestorage.app",
+      messagingSenderId: "602565284281",
+      appId: "1:602565284281:web:fdd188eb4a961eac4e6668",
+      measurementId: "G-XZ3GRK5ZPC"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const CATEGORIES = [
+      { id: "et-yemekleri", name: "Et Yemekleri" },
+      { id: "hamburger", name: "Hamburger" },
+      { id: "makarnalar", name: "Makarnalar" },
+      { id: "pizza", name: "Pizza" },
+      { id: "salatalar", name: "Salatalar" },
+      { id: "gozlemeler", name: "Gözlemeler" },
+      { id: "wrapler", name: "Wrapler" },
+      { id: "tost-cesitleri", name: "Tost Çeşitleri" },
+      { id: "atistirmalik-tatli", name: "Atıştırmalık & Tatlılar" },
+      { id: "kahveler", name: "Kahveler" },
+      { id: "sicak-icecekler", name: "Sıcak İçecekler" },
+      { id: "soguk-icecekler", name: "Soğuk İçecekler" },
+      { id: "vitamin-deposu", name: "Vitamin Deposu" },
+      { id: "nargile", name: "Nargile" }
+    ];
+
+    let allProducts = [];
+    let activeFilter = 'all';
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('dashboard-screen').classList.remove('hidden');
+        initDashboard();
+      } else {
+        document.getElementById('auth-screen').classList.remove('hidden');
+        document.getElementById('dashboard-screen').classList.add('hidden');
+      }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+      const btn = document.getElementById('login-btn');
+
+      try {
+        btn.innerText = "Giriş yapılıyor...";
+        errEl.classList.add('hidden');
+        await signInWithEmailAndPassword(auth, email, pass);
+      } catch (err) {
+        console.error("Firebase Login Error:", err);
+        errEl.innerText = "Giriş başarısız: " + (err.code === "auth/invalid-credential" ? "E-posta veya şifre hatalı." : err.message);
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.innerText = "Giriş Yap";
+      }
+    });
+
+    window.handleLogout = () => signOut(auth);
+
+    function initDashboard() {
+      const select = document.getElementById('form-category');
+      select.innerHTML = CATEGORIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+      onSnapshot(collection(db, "menu_items"), (snapshot) => {
+        allProducts = [];
+        snapshot.forEach(docSnap => {
+          allProducts.push({ docId: docSnap.id, ...docSnap.data() });
+        });
+        renderSidebarCategories();
+        renderTable();
+      });
+    }
+
+    function renderSidebarCategories() {
+      const nav = document.getElementById('sidebar-categories');
+      document.getElementById('badge-total-count').innerText = allProducts.length;
+
+      nav.innerHTML = CATEGORIES.map(cat => {
+        const count = allProducts.filter(p => p.categoryId === cat.id).length;
+        const isActive = activeFilter === cat.id;
+        return `
+          <button onclick="filterCategory('${cat.id}')" 
+                  class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${isActive ? 'bg-zinc-800 text-white font-bold gold-border border-l-2' : 'text-zinc-400 hover:text-white hover:bg-zinc-800/40'}">
+            <span class="truncate">${cat.name}</span>
+            <span class="text-[10px] bg-zinc-900 px-1.5 py-0.5 rounded text-zinc-400">${count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    window.filterCategory = (catId) => {
+      activeFilter = catId;
+      document.getElementById('search-input').value = '';
+      renderSidebarCategories();
+      renderTable();
+    };
+
+    window.handleSearch = () => {
+      const q = document.getElementById('search-input').value.trim().toLowerCase();
+      if (!q) { renderTable(); return; }
+      const filtered = allProducts.filter(p => 
+        (p.title && p.title.toLowerCase().includes(q)) || 
+        (p.subcategory && p.subcategory.toLowerCase().includes(q))
+      );
+      renderTable(filtered);
+    };
+
+    function renderTable(listToRender = null) {
+      let items = listToRender;
+      if (!items) {
+        items = activeFilter === 'all' ? allProducts : allProducts.filter(p => p.categoryId === activeFilter);
+      }
+
+      const catName = activeFilter === 'all' ? 'Tüm Ürünler' : CATEGORIES.find(c => c.id === activeFilter)?.name;
+      document.getElementById('page-category-title').innerText = catName;
+      document.getElementById('page-item-count').innerText = `${items.length} ürün listeleniyor`;
+
+      const tbody = document.getElementById('product-tbody');
+      if (items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-zinc-500 text-sm">Ürün bulunamadı. Sol alttaki butondan menüyü içeri aktarabilirsiniz.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = items.map(item => {
+        const cat = CATEGORIES.find(c => c.id === item.categoryId)?.name || item.categoryId;
+        return `
+          <tr class="hover:bg-zinc-800/30 transition-colors">
+            <td class="py-3 px-4 font-semibold text-white">${item.title}</td>
+            <td class="py-3 px-4 text-zinc-300 text-xs">${cat}</td>
+            <td class="py-3 px-4 text-zinc-400 text-xs">${item.subcategory || 'Genel'}</td>
+            <td class="py-3 px-4 font-bold gold-text text-sm whitespace-nowrap">${item.price} ₺</td>
+            <td class="py-3 px-4 text-center">
+              <button onclick="toggleProduct('${item.docId}', ${!item.active})" 
+                      class="px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all ${item.active ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800' : 'bg-rose-950/60 text-rose-400 border-rose-800'}">
+                ${item.active ? '● Satışta' : '○ Tükendi'}
+              </button>
+            </td>
+            <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
+              <button onclick="editProductModal('${item.docId}')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium">Düzenle</button>
+              <button onclick="deleteProductDoc('${item.docId}')" class="px-2.5 py-1 rounded bg-red-950/40 hover:bg-red-900/60 border border-red-900/50 text-red-300 text-xs font-medium">Sil</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.openModal = () => {
+      document.getElementById('modal-heading').innerText = 'Yeni Ürün Ekle';
+      document.getElementById('form-doc-id').value = '';
+      document.getElementById('form-title').value = '';
+      document.getElementById('form-price').value = '';
+      document.getElementById('form-active').value = "true";
+      document.getElementById('form-category').value = activeFilter === 'all' ? CATEGORIES[0].id : activeFilter;
+      document.getElementById('form-subcategory').value = 'Genel';
+      document.getElementById('product-modal').classList.remove('hidden');
+    };
+
+    window.closeModal = () => document.getElementById('product-modal').classList.add('hidden');
+
+    window.editProductModal = (docId) => {
+      const p = allProducts.find(x => x.docId === docId);
+      if (!p) return;
+      document.getElementById('modal-heading').innerText = 'Ürünü Düzenle';
+      document.getElementById('form-doc-id').value = p.docId;
+      document.getElementById('form-title').value = p.title;
+      document.getElementById('form-price').value = p.price;
+      document.getElementById('form-active').value = p.active ? "true" : "false";
+      document.getElementById('form-category').value = p.categoryId;
+      document.getElementById('form-subcategory').value = p.subcategory || 'Genel';
+      document.getElementById('product-modal').classList.remove('hidden');
+    };
+
+    document.getElementById('product-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const docId = document.getElementById('form-doc-id').value;
+      const title = document.getElementById('form-title').value.trim();
+      const price = Number(document.getElementById('form-price').value);
+      const active = document.getElementById('form-active').value === "true";
+      const categoryId = document.getElementById('form-category').value;
+      const subcategory = document.getElementById('form-subcategory').value.trim() || 'Genel';
+
+      const btn = document.getElementById('btn-save');
+      btn.innerText = "Kaydediliyor...";
+      btn.disabled = true;
+
+      try {
+        const data = { title, price, active, categoryId, subcategory, updatedAt: new Date() };
+        if (docId) {
+          await updateDoc(doc(db, "menu_items", docId), data);
+        } else {
+          await addDoc(collection(db, "menu_items"), data);
+        }
+        closeModal();
+      } catch (err) {
+        alert("Hata: " + err.message);
+      } finally {
+        btn.innerText = "Kaydet";
+        btn.disabled = false;
+      }
+    });
+
+    window.toggleProduct = async (docId, newStatus) => {
+      await updateDoc(doc(db, "menu_items", docId), { active: newStatus });
+    };
+
+    window.deleteProductDoc = async (docId) => {
+      if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
+      await deleteDoc(doc(db, "menu_items", docId));
+    };
+
+    window.seedInitialData = async () => {
+      if (!confirm("Tüm orijinal Babylon Cafe menüsü Firestore'a aktarılsın mı?")) return;
+      const btn = document.getElementById('btn-seed');
+      btn.innerText = "Aktarılıyor...";
+      btn.disabled = true;
+
+      const initialProducts = [
+        { title: "Izgara servis köfte", price: 600, categoryId: "et-yemekleri", subcategory: "Kırmızı Etler", active: true },
+        { title: "Köfte çökertme", price: 640, categoryId: "et-yemekleri", subcategory: "Kırmızı Etler", active: true },
+        { title: "Köfte fajita", price: 600, categoryId: "et-yemekleri", subcategory: "Kırmızı Etler", active: true },
+        { title: "Beğendili kasap köfte", price: 680, categoryId: "et-yemekleri", subcategory: "Kırmızı Etler", active: true },
+        { title: "Noodle tavuklu", price: 380, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Köri soslu tavuk", price: 430, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Kremalı mantarlı tavuk", price: 430, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Tavuk şnitzel", price: 450, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Mantar soslu şnitzel", price: 520, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Tavuk schnitzel", price: 400, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Tavuk çökertme", price: 450, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Tavuk fajita", price: 450, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Piliç ızgara", price: 430, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Sweet chili soslu tavuk", price: 430, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Barbekü soslu tavuk", price: 430, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Tavuklu quesadilla", price: 450, categoryId: "et-yemekleri", subcategory: "Tavuk Yemekleri", active: true },
+        { title: "Hamburger", price: 410, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Tavuk Burger", price: 380, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Special Burger (double)", price: 600, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Babylon Special Burger", price: 450, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Mantar Soğan Cheddar", price: 460, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Cheese burger", price: 450, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Babylon Çıtır Tavuk Burger", price: 430, categoryId: "hamburger", subcategory: "Genel", active: true },
+        { title: "Ton Balıklı Penne", price: 390, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Kremalı Mantar Tavuklu Penne", price: 380, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Spaghetti Napoliten", price: 340, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Köri Soslu Tavuklu Penne", price: 380, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Spaghetti Bolonez", price: 390, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Penne Sebzeli", price: 310, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Tavuklu Brokolili Penne", price: 340, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Tavuklu Fettucini Alfredo", price: 400, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Penne AL Arrabbiata Penne", price: 340, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Acılı Sebzeli Penne", price: 340, categoryId: "makarnalar", subcategory: "Genel", active: true },
+        { title: "Pizza karışık", price: 400, categoryId: "pizza", subcategory: "Genel", active: true },
+        { title: "Pizza margarita", price: 330, categoryId: "pizza", subcategory: "Genel", active: true },
+        { title: "Tavuklu Sezar Salata", price: 350, categoryId: "salatalar", subcategory: "Genel", active: true },
+        { title: "Ton Balıklı Salata", price: 400, categoryId: "salatalar", subcategory: "Genel", active: true },
+        { title: "Akdeniz Salata", price: 280, categoryId: "salatalar", subcategory: "Genel", active: true },
+        { title: "Çıtırlı Tavuklu Salata", price: 340, categoryId: "salatalar", subcategory: "Genel", active: true },
+        { title: "Izgara Tavuklu Salata", price: 330, categoryId: "salatalar", subcategory: "Genel", active: true },
+        { title: "Karışık Tost", price: 320, categoryId: "tost-cesitleri", subcategory: "Genel", active: true },
+        { title: "Kaşarlı Tost", price: 280, categoryId: "tost-cesitleri", subcategory: "Genel", active: true },
+        { title: "Ayvalık Tostu", price: 350, categoryId: "tost-cesitleri", subcategory: "Genel", active: true },
+        { title: "Sucuklu Tost", price: 300, categoryId: "tost-cesitleri", subcategory: "Genel", active: true },
+        { title: "Şefin Özel Tostu", price: 390, categoryId: "tost-cesitleri", subcategory: "Genel", active: true },
+        { title: "Karışık Gözleme", price: 280, categoryId: "gozlemeler", subcategory: "Genel", active: true },
+        { title: "Kaşarlı Gözleme", price: 260, categoryId: "gozlemeler", subcategory: "Genel", active: true }
+      ];
+
+      try {
+        const batch = writeBatch(db);
+        initialProducts.forEach(item => {
+          const docRef = doc(collection(db, "menu_items"));
+          batch.set(docRef, { ...item, createdAt: new Date() });
+        });
+        await batch.commit();
+        alert("Ürünler Firestore'a başarıyla aktarıldı!");
+      } catch (err) {
+        alert("Hata: " + err.message);
+      } finally {
+        btn.innerText = "📦 Tüm Menüyü Firestore'a Aktar (Seed)";
+        btn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>
